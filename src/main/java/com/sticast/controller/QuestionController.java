@@ -50,45 +50,45 @@ public class QuestionController {
 	private ShareService shareService;
 
 	/******* Shows all questions *******/
-	
+
 	@GetMapping(value = "/questions")
-    public String showAllQuestions(Model model, HttpServletRequest request) {
+	public String showAllQuestions(Model model, HttpServletRequest request) {
 	
-	    List<Question> questionsList = questionService.findAll();
-	    List<Category> categoriesList = categoryService.findAll();
+		List<Question> questionsList = questionService.findAll();
+		List<Category> categoriesList = categoryService.findAll();
 	  	
-	    model.addAttribute("categoriesList", categoriesList);
-	    model.addAttribute("questionsList", questionsList);
-	    model.addAttribute("category", "all");
-	
-	    return "questionslist";
+		model.addAttribute("categoriesList", categoriesList);
+		model.addAttribute("questionsList", questionsList);
+		model.addAttribute("category", "all");
+
+		return "questionslist";
     }
 	
 	/******* Shows all questions of a given category TODO Implements multi question category supports *******/
 	
 	@GetMapping(value = "/questions/{category}")
-    public String showQuestionsByCategory(Model model, @PathVariable String category, HttpServletRequest request) {
+	public String showQuestionsByCategory(Model model, @PathVariable String category, HttpServletRequest request) {
 	
-	    List<Question> questionsList = categoryService.findByName(category).getQuestions();
-	    List<Category> categoriesList = categoryService.findAll();
-	    
-	    model.addAttribute("categoriesList", categoriesList);
-	    model.addAttribute("questionsList",questionsList);
-	    model.addAttribute("category", category);
-	
-	    return "questionslist";
-    }
+		List<Question> questionsList = categoryService.findByName(category).getQuestions();
+		List<Category> categoriesList = categoryService.findAll();
+
+		model.addAttribute("categoriesList", categoriesList);
+		model.addAttribute("questionsList",questionsList);
+		model.addAttribute("category", category);
+
+		return "questionslist";
+	}
 	
 	/******* Return a single question *******/
 	
-    @GetMapping(value = "/question/{questionID}")
-    public String showQuestion(Model model, @PathVariable("questionID") Integer questionID,
-	    HttpServletRequest request, @ModelAttribute("forecast") Forecast forecast, @ModelAttribute("comment") Comment comment) {
+	@GetMapping(value = "/question/{questionID}")
+	public String showQuestion(Model model, @PathVariable("questionID") Integer questionID,
+	HttpServletRequest request, @ModelAttribute("forecast") Forecast forecast, @ModelAttribute("comment") Comment comment) {
 		
 		HttpSession session = request.getSession(false);			
 		User tmpUser = (User) session.getAttribute("user");
 	
-    	Question question = questionService.findById(questionID);
+		Question question = questionService.findById(questionID);
 		User user = userService.findById(tmpUser.getId());
 		
 		Share share = shareService.findByUserAndQuestion(user, question);
@@ -99,24 +99,26 @@ public class QuestionController {
 			model.addAttribute("isFollowed", 0);
 		else
 			model.addAttribute("isFollowed", 1);
-		
+
 		model.addAttribute("question",question);
 		model.addAttribute("yesQuantity", share.getYesShareQnt());	
 		model.addAttribute("noQuantity", share.getNoShareQnt());	
 		model.addAttribute("yesValue", yesShareValue);
 		model.addAttribute("noValue", 1 - yesShareValue);
-	    model.addAttribute("commentsList", question.getComments());	
+		model.addAttribute("commentsList", question.getComments());	
 
-	    return "question";	  
-    }
+		return "question";	  
+	}
 
-    @PostMapping(value = "/question/{questionID}/comments")
+	/******* Post a comment *******/
+	
+	@PostMapping(value = "/question/{questionID}/comments")
 	public String postComment(HttpServletRequest request, @ModelAttribute("comment") Comment comment, @PathVariable Integer questionID) {   
 		commentService.save(comment);
 		HttpSession session = request.getSession(false);			
 		User tmpUser = (User) session.getAttribute("user");
-	
-    	Question question = questionService.findById(questionID);
+
+		Question question = questionService.findById(questionID);
 		User user = userService.findById(tmpUser.getId());
 		
 		notificationService.sendCommentNotification(user, question);
@@ -124,28 +126,28 @@ public class QuestionController {
 		return "redirect:/question/"+questionID;	  
 	}
     
-    //Follow-Unfollow a question
-    @PostMapping(value = "/question/{questionID}/follow")
-    @ResponseBody
-  	public void followQuestion(HttpServletRequest request, @RequestParam String type, @PathVariable Integer questionID) {   
+	/******* Follow a question *******/
+	
+	@PostMapping(value = "/question/{questionID}/follow")
+	@ResponseBody
+	public void followQuestion(HttpServletRequest request, @RequestParam String type, @PathVariable Integer questionID) {   
   		
-    	HttpSession session = request.getSession(false);	
+		HttpSession session = request.getSession(false);	
     	User tmpUser = (User) session.getAttribute("user");
     	
     	Question question = questionService.findById(questionID);
-		User user = userService.findById(tmpUser.getId());
+    	User user = userService.findById(tmpUser.getId());
 		
-		questionService.updateFollow(type, question, user);  			  
-  	}
+    	questionService.updateFollow(type, question, user);  			  
+	}
 	
-    
-    @PostMapping(value = "/question/{questionID}/close")
-    public String closeQuestion(Model model, @PathVariable Integer questionID, @RequestParam("winnerType") String winnerType,
-	    HttpServletRequest request) {
-    	Question question = questionService.findById(questionID);
+	/******* Close a question *******/
+	
+	@PostMapping(value = "/question/{questionID}/close")
+	public String closeQuestion(@PathVariable Integer questionID, @RequestParam("winnerType") String winnerType) {
+		Question question = questionService.findById(questionID);
     	
-    	questionService.closeQuestion(question, winnerType);	
+		questionService.closeQuestion(question, winnerType);	
 		return "redirect:/questions/all";	
-    }
-    
+	}
 }

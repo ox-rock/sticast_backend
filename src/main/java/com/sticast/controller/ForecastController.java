@@ -39,7 +39,6 @@ public class ForecastController {
 		forecastService.makeForecast(forecast);
 		questionService.updateShareQuantity(forecast);
 		
-
 		user.setBudget(user.getBudget() - forecast.getPayout());
 		userService.save(user);
 		
