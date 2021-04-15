@@ -18,5 +18,4 @@ public class ShareServiceImpl implements ShareService {
 	public Share findByUserAndQuestion(User user, Question question) {
 		return shareRepository.findByUserAndQuestion(user, question).orElse(new Share(null));
 	}
-	
 }

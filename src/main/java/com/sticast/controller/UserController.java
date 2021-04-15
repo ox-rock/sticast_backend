@@ -37,8 +37,7 @@ public class UserController {
 	UserService userService;
 	
 	@Autowired 
-	NotificationService notificationService;
-	
+	NotificationService notificationService;	
 
 	/******* Get user profile *******/
 	

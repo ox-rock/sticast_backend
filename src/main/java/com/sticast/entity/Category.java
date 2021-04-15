@@ -13,6 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name="category")
 public class Category {
@@ -30,32 +33,4 @@ public class Category {
 	joinColumns = @JoinColumn(name = "category_id"), 
 	inverseJoinColumns = @JoinColumn(name = "question_id"))
 	private List<Question> questions;
-
-	/***********************
-	 *  Get & Set methods  *
-	 ***********************/
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer aId) {
-        id = aId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String aName) {
-        name = aName;
-    }
-
-	public List<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
 }

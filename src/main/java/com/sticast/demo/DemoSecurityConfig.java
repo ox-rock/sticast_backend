@@ -15,7 +15,6 @@ import com.sticast.service.UserService;
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	// add a reference to our security data source
     @Autowired
     private UserService userService;
 	

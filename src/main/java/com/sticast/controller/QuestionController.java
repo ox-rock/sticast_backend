@@ -50,7 +50,8 @@ public class QuestionController {
 	private ShareService shareService;
 
 	/******* Shows all questions *******/
-
+	// TODO Implement search functionality: by name, date and forecasts number with pagination
+	
 	@GetMapping(value = "/questions")
 	public String showAllQuestions(Model model, HttpServletRequest request) {
 	
@@ -64,7 +65,7 @@ public class QuestionController {
 		return "questionslist";
     }
 	
-	/******* Shows all questions of a given category TODO Implements multi question category supports *******/
+	/******* Shows all questions of a given category TODO Implement multi question category support *******/
 	
 	@GetMapping(value = "/questions/{category}")
 	public String showQuestionsByCategory(Model model, @PathVariable String category, HttpServletRequest request) {
