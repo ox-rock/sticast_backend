@@ -48,14 +48,7 @@
 							
 		 <div class="form__group"><form:errors path="matchingPassword" cssClass="error" />
 							<form:password path="matchingPassword" placeholder="Confirm password" class="form__input" />
-					</div>
-							
-		<div class="form__group"><form:errors path="firstName" cssClass="error" />
-							<form:input path="firstName" placeholder="First name" class="form__input" /></div>
-					
-		<div class="form__group"><form:errors path="lastName" cssClass="error" />
-							<form:input path="lastName" placeholder="Last name" class="form__input" />
-						</div>								
+					</div>										
 							
         <div class="form__group"><form:errors path="email" cssClass="error" />
 							<form:input path="email" placeholder="Email" class="form__input" /></div>

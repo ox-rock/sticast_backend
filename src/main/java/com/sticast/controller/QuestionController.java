@@ -65,7 +65,8 @@ public class QuestionController {
 		return "questionslist";
     }
 	
-	/******* Shows all questions of a given category TODO Implement multi question category support *******/
+	// TODO Implement multiple question category support
+	/******* Shows all questions of a given category  *******/
 	
 	@GetMapping(value = "/questions/{category}")
 	public String showQuestionsByCategory(Model model, @PathVariable String category, HttpServletRequest request) {

@@ -1,3 +1,4 @@
+
 package com.sticast.entity;
 
 import javax.persistence.*;
@@ -23,12 +24,6 @@ public class User {
 	@Column(name = "password", nullable=false)
 	private String password;
 
-	@Column(name = "first_name", nullable=false, length=100)
-	private String firstName;
-
-	@Column(name = "last_name", nullable=false, length=100)
-	private String lastName;
-
 	@Column(name = "email", unique=true, nullable=false, length=100)
 	private String email;
 	
@@ -37,6 +32,9 @@ public class User {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private List<Forecast> forecasts;
+	
+	@Column(name = "status", nullable=false, length=100)
+	private String status;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", 
@@ -50,6 +48,6 @@ public class User {
 	inverseJoinColumns = @JoinColumn(name = "question_id"))
 	private Set<Question> follows = new HashSet<Question>();
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private UserSettings userSettings;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="user", optional = false)
+	private UserDetails userDetails;
 }

@@ -29,11 +29,13 @@ public class QuestionServiceImpl implements QuestionService {
     	
 	@Override
 	public List<Question> findAll() {	
+		
 			return questionRepository.findAll();
 	}
 	
 	@Override
 	public Question findById(Integer questionID) {
+		
 		return questionRepository.findById(questionID).get();
 	}
 	
@@ -49,6 +51,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public void updateShareQuantity(Forecast forecast) {
+		
 		Question oldQuestion = forecast.getQuestion();
 		
 		if(forecast.getAnswer().equals("yes")) 
@@ -72,6 +75,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public Optional<Question> findByIdAndFollowed_Id(Integer questionid, Integer id) {
+		
 		return questionRepository.findByIdAndFollowed_Id(questionid, id);
 	}
 
@@ -86,6 +90,5 @@ public class QuestionServiceImpl implements QuestionService {
 			user.setBudget(user.getBudget() + winners.get(i).getYesShareQnt()*yesValue);
 			userDao.save(user);
 		}
-			
 	}
 }

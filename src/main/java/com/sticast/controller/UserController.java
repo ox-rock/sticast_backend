@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Notification;
 import com.sticast.entity.User;
-import com.sticast.entity.UserSettings;
+import com.sticast.entity.UserDetails;
 import com.sticast.service.ForecastService;
 import com.sticast.service.NotificationService;
 import com.sticast.service.QuestionService;
@@ -48,7 +48,7 @@ public class UserController {
 		   	
 		User user = userService.findById(tmpUser.getId());
 		model.addAttribute("user", user);
-		model.addAttribute("userSettings", user.getUserSettings());
+		model.addAttribute("userSettings", user.getUserDetails());
 		  
 		return "profile";
 	}
@@ -122,19 +122,19 @@ public class UserController {
 		HttpSession session = request.getSession(false);	
     	User tmpUser = (User) session.getAttribute("user");
     	
-    	UserSettings userSettings = new UserSettings();
-    	userSettings.setId(tmpUser.getId());
+    	UserDetails userDetails = new UserDetails();
+    	userDetails.setId(tmpUser.getId());
     	
 		if (closed) 
-			userSettings.setClosedQuestionNotification(1);
-		else userSettings.setClosedQuestionNotification(0);
+			userDetails.setClosedQuestionNotification(1);
+		else userDetails.setClosedQuestionNotification(0);
 		
 		if (comment) 
-			userSettings.setCommentNotification(1); 
-		else userSettings.setCommentNotification(0); 
+			userDetails.setCommentNotification(1); 
+		else userDetails.setCommentNotification(0); 
 		
 		User user = userService.findById(tmpUser.getId());
-		user.setUserSettings(userSettings);
+		user.setUserDetails(userDetails);
 		userService.save(user);
 	}
 }

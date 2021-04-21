@@ -12,6 +12,7 @@ import com.sticast.entity.Question;
 import com.sticast.entity.User;
 import com.sticast.service.ForecastService;
 import com.sticast.service.QuestionService;
+import com.sticast.service.ShareService;
 import com.sticast.service.UserService;
 
 @Controller
@@ -24,8 +25,12 @@ public class ForecastController {
 	QuestionService questionService;
 	
 	@Autowired 
+	ShareService shareService;
+	
+	@Autowired 
 	UserService userService;
 
+	// TODO Implement AJAX
 	@PostMapping(value = "/question/{questionID}")
 	public String makeForecast(@PathVariable Integer questionID, HttpServletRequest request, @ModelAttribute("forecast") Forecast forecast) {
 		
@@ -38,10 +43,10 @@ public class ForecastController {
 		forecast.setUser(user);
 		forecastService.makeForecast(forecast);
 		questionService.updateShareQuantity(forecast);
+		shareService.updateShareQuantity(user, question, forecast);
 		
 		user.setBudget(user.getBudget() - forecast.getPayout());
-		userService.save(user);
-		
+		userService.save(user);		
 		session.setAttribute("user", user);
 		return "redirect:/question/"+questionID; 	   	
     }

@@ -14,12 +14,11 @@ import com.sticast.service.NotificationService;
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
-
 	@Autowired 
 	NotificationDao notificationRepository;
 	
 	@Override
-	public void sendCommentNotification(User userSender, Question question) {	
+	public void sendCommentNotification(User userSender, Question question) {
 		
 		Notification commentNotification = new Notification();
 		commentNotification.setType("comment");
@@ -29,18 +28,16 @@ public class NotificationServiceImpl implements NotificationService {
 		Set<User> followers_h = question.getFollowed();
 		List<User> followers = new ArrayList<>(followers_h);
 	
-		
 		for (int i = 0; i < followers.size(); i++) {
-		if(followers.get(i).getUserSettings().getCommentNotification() == 1) {
-			commentNotification.setReciever(followers.get(i));
-			notificationRepository.save(commentNotification);			
+			if(followers.get(i).getUserDetails().getCommentNotification() == 1) {
+				commentNotification.setReciever(followers.get(i));
+				notificationRepository.save(commentNotification);			
+			}
 		}
-		}
-		
 	}
 
 	@Override
-	public List<Notification> findNotificationByUsername(User user) {
+	public List<Notification> findNotificationByUsername(User user) {	
 		
 		return notificationRepository.findByReciever(user);
 	}

@@ -47,6 +47,12 @@ public class Question {
     @Column(name = "expiration_date", nullable = false, length = 45)
     private String expirationDate;
     
+    @Column(name = "forecasters", nullable = false)
+    private Integer forecasters;
+    
+    @Column(name = "forecasts", nullable = false)
+    private Integer forecastsNumber;
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
     private List<Comment> comments;
     

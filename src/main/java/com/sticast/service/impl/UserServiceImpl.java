@@ -53,10 +53,8 @@ public class UserServiceImpl implements UserService {
 		 // assign user details to the user object
 		user.setUserName(crmUser.getUserName());
 		user.setPassword(passwordEncoder.encode(crmUser.getPassword()));
-		user.setFirstName(crmUser.getFirstName());
-		user.setLastName(crmUser.getLastName());
 		user.setEmail(crmUser.getEmail());
-
+		user.setStatus("ACTIVE");
 		// give user default role of "employee"
 		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_USER")));
 

@@ -9,13 +9,12 @@ import com.sticast.entity.User;
 
 public interface QuestionService {
 
-	public List<Question> findAll();
-	public Question findById(Integer questionID);
-	public Double calculateShareValue(Question question);
-//	public void closeQuestion(Integer questionID);
+	List<Question> findAll();
+	Optional<Question> findByIdAndFollowed_Id(Integer questionid, Integer id);
+	Question findById(Integer questionID);
+	Double calculateShareValue(Question question);
 	void updateShareQuantity(Forecast forecast);
-	public void updateFollow(String requestType, Question question, User user);
-	public Optional<Question> findByIdAndFollowed_Id(Integer questionid, Integer id);
-	public void closeQuestion(Question question, String winnerType);
+	void updateFollow(String requestType, Question question, User user);
+	void closeQuestion(Question question, String winnerType);
 	
 }
