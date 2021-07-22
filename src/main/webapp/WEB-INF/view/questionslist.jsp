@@ -28,59 +28,61 @@
       </c:otherwise>
     </c:choose>
   </head>
-  <body> 
-  
-    <!------------ SELECT CATEGORY FORM ------------>
-    <div align="center" style="width:20%; margin:auto;"> 
-      <form action="${pageContext.request.contextPath}/questions" method="GET" id="form1">  
-        <select name ="category" id="selectCategory" style="height:27px; width: 150px">
-          <option  value="all">All questions</option>
-          <c:forEach items="${categoriesList}" var="data" varStatus="item"> 
-            <option  value="${data.name}">${data.name}</option>
-          </c:forEach> 
-        </select>
-        <button class="button-choose"><span>Choose</span></button>
-      </form>
-    </div>
+  <body>
 
-    <!------------ QUESTIONS TABLE ------------>
-    <div class="table-questions-title" align="center" style="font-family: Roboto; text-transform:uppercase; margin-bottom: 30px; margin-top: 40px"> <h3>- ${requestScope.category} -</h3> </div>
-    <div style="padding-bottom: 100px;">
-      <table class="table-questions" >
-        <thead>
-          <tr>
-            <th class="text-left"><b>Questions</b></th>
-            <th class="text-center"><b>Expiration date</b></th>
-            <th class="text-center"><b>Status</b></th>  
-          </tr>
-        </thead>
-        <tbody class="table-hover">
-          <c:forEach items="${questionsList}" var="data" varStatus="item">
-         
-            <tr>
-              <td class="text-justify"><a href="${pageContext.request.contextPath}/question/${data.id}" id="${data.id}">${data.text} </a></td>
-              <td class="text-center">${data.expirationDate}</td>
-              <c:choose>
-                <c:when test="${data.isOpen == 1}">
-                  <td class="text-center">Open</td>
-                </c:when>    
-                <c:otherwise>
-                  <td class="text-center">Closed</td>
-                </c:otherwise>
-              </c:choose>
-            </tr>
-            
-          </c:forEach> 
-        </tbody>
-      </table>
-    </div>
+  <!------------ SELECT CATEGORY FORM ------------>
+  <div align="center" style="width:20%; margin:auto;">
+    <form method="GET" id="formCategory">
+      <select name ="category" id="selectCategory" style="height:27px; width: 150px">
+        <option  value="all">All questions</option>
+
+      </select>
+      <button class="button-choose"><span>Choose</span></button>
+    </form>
+  </div>
+
+  <!------------ QUESTIONS TABLE ------------>
+  <div class="table-questions-title" align="center" style="font-family: Roboto; text-transform:uppercase; margin-bottom: 30px; margin-top: 40px"></div>
+  <div style="padding-bottom: 100px;">
+    <table class="table-questions" id="myTable">
+      <thead>
+      <tr>
+        <th class="text-left"><b>Questions</b></th>
+        <th class="text-center"><b>Expiration date</b></th>
+        <th class="text-center"><b>Status</b></th>
+      </tr>
+      </thead>
+      <tbody class="table-hover">
+
+      </tbody>
+    </table>
+  </div>
+
     
     <%@ include file="footbar.jsp" %>
-    <script type="text/javascript" src="<c:url value="/js/index.js" />"></script>
+
     <script type="text/javascript">
-      document.getElementById('selectCategory').onchange = function(){
-        document.getElementById('form1').action = '${pageContext.request.contextPath}/questions/'+this.value;
-      }
+
+      $(document).ready(function() {
+        $.getJSON("http://localhost:8080/api/categories", function(data){
+          data.forEach(function(item){
+            $('#formCategory option:last').after('<option  value="' + item.name + '">' + item.name + '</option>');
+          })
+        });
+      });
+
+      $(document).ready(function() {
+        $.getJSON("http://localhost:8080/api/questions", function(data){
+          data.forEach(function(item){
+            $('#myTable tr:last').after('<tr>' +
+                    '<td class="text-justify"><a href="${pageContext.request.contextPath}/question/' +item.id+ '" id="' +item.id+ '">' + item.text + '</a></td>' +
+                    '<td class="text-center">'+item.expirationDate+'</td>' +
+                    '<td class="text-center">'+item.status+'</td>' +
+                    '</tr>');
+          })
+        });
+      });
+
     </script>
   </body>
 </html>

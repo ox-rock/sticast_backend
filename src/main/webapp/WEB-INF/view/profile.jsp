@@ -15,7 +15,7 @@
     <!----------------- INCLUDE NAVBAR ----------------->
     <%@include file="navbar.jsp" %>
     <c:choose>
-      <c:when test="${not empty user.userName}">
+      <c:when test="${not empty user.username}">
         <script>$("#questionsList").toggleClass('show');</script>
       </c:when>
       <c:otherwise>
@@ -59,7 +59,7 @@
     
                       <label for="username" class="col-4 col-form-label">Username </label>
                       <div class="col-8">
-                        <form:input path="userName" value="${user.userName}" class="form-control here" type="text"/>
+                        <form:input path="username" value="${user.username}" class="form-control here" type="text"/>
                         
                       </div>
                     </div>

@@ -14,12 +14,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="comment")
 public class Comment {
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, length=10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @ManyToOne
@@ -30,10 +28,10 @@ public class Comment {
     @JoinColumn(name="question_id", nullable=false)
     private Question question;
     
-    @Column(name="text", nullable=false, length=500)
+    @Column(nullable = false, length=500)
     private String text;
     
-    @Column(name="timestamp", nullable=false)
+    @Column(nullable = false)
     @CreationTimestamp
     private Date timestamp;
 }

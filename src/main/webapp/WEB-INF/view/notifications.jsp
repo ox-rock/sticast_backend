@@ -15,7 +15,7 @@
     <!------------ TOP NAVBAR ------------>
     <%@include file="navbar.jsp" %>
     <c:choose>
-      <c:when test="${not empty user.userName}">
+      <c:when test="${not empty user.username}">
         <script>$("#questionsList").toggleClass('show');</script>
       </c:when>
       <c:otherwise>
@@ -45,7 +45,7 @@
             <tbody class="table-hover">
               <c:forEach items="${notificationsList}" var="data" varStatus="item">
                 <tr>
-                  <td class="text-justify">User <b>${data.sender.userName}</b> commented question <b>${data.question.text}</b> (${data.timestamp}) </td>
+                  <td class="text-justify">User <b>${data.sender.username}</b> commented question <b>${data.question.text}</b> (${data.timestamp}) </td>
                 </tr>
               </c:forEach> 
             </tbody>

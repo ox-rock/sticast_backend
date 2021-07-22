@@ -20,12 +20,12 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	public void sendCommentNotification(User userSender, Question question) {
 		
-		Notification commentNotification = new Notification();
+		/*Notification commentNotification = new Notification();
 		commentNotification.setType("comment");
 		commentNotification.setQuestion(question);
 		commentNotification.setSender(userSender);
 		
-		Set<User> followers_h = question.getFollowed();
+		List<User> followers_h = question.getFollowed();
 		List<User> followers = new ArrayList<>(followers_h);
 	
 		for (int i = 0; i < followers.size(); i++) {
@@ -34,6 +34,8 @@ public class NotificationServiceImpl implements NotificationService {
 				notificationRepository.save(commentNotification);			
 			}
 		}
+
+		 */
 	}
 
 	@Override

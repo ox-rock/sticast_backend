@@ -9,7 +9,5 @@ import com.sticast.entity.User;
 
 @Repository("ForecastRepository")
 public interface ForecastDao extends JpaRepository<Forecast, Integer> {
-
 	List<Forecast> findByUser(User user);
-	    
 }

@@ -77,7 +77,7 @@ $( "#select_sell" ).change(function() {
 $(document).ready(function(){
 	 $("#edit").click(function(e){
 	e.preventDefault();
-	userName = $("#userName").val()
+	username = $("#username").val()
 	email = $("#email").val()
 	
 	$.ajax({
@@ -85,7 +85,7 @@ $(document).ready(function(){
 	  type: 'POST',
 	  cache: false,
 	  data: {
-	    userName: userName,
+	    username: username,
 	    email: email,
 
 	  },

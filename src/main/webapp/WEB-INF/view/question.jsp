@@ -18,7 +18,7 @@
     <!--------------------- NAVBAR ------------------------->
     <%@ include file="navbar.jsp" %>
     <c:choose>
-      <c:when test="${not empty user.userName}">
+      <c:when test="${not empty user.username}">
         <script>$("#questionsList").toggleClass('show');</script>
       </c:when>    
       <c:otherwise>
@@ -159,7 +159,7 @@
           <div class="media-body">
             <c:forEach items="${commentsList}" var="data" varStatus="item"> 
               <div class="well" style="height: auto; ">
-			    <h4 style="font-size:18px"><b>${data.user.userName}</b> @ ${data.timestamp}</h4>
+			    <h4 style="font-size:18px"><b>${data.user.username}</b> @ ${data.timestamp}</h4>
 			    <p class="media-comment" style="font-size:15px;">${data.text}</p>
               </div>
 	        </c:forEach>  

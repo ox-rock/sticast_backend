@@ -1,4 +1,4 @@
-package com.sticast.demo;
+package com.sticast.conf;
 
 import java.io.IOException;
 
@@ -25,9 +25,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 
-		String userName = authentication.getName();
+		String username = authentication.getName();
 
-		User user = userService.findByUserName(userName);
+		User user = userService.findByUsername(username);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);

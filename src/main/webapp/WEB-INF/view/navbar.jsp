@@ -16,9 +16,9 @@
         <li id="nav_signin" class="hide"><a href="${pageContext.request.contextPath}/login" id="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li id="nav_signup" class="hide"><a href="${pageContext.request.contextPath}/register/showRegistrationForm" id="registration"><span class="glyphicon glyphicon-plus-sign"></span> Register</a></li>  
         <li class="dropdown-active" id="user_menu">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>  ${sessionScope.user.userName} <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>  ${sessionScope.user.username} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#"><b>Username</b>: ${user.userName} </a></li>
+            <li><a href="#"><b>Username</b>: ${user.username} </a></li>
             <li><a href="#"><b>Budget</b>: <fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${user.budget}"/>$</a></li>
             <li><br></li>
             <li><a href="${pageContext.request.contextPath}/profile" id="profile">My profile</a></li>

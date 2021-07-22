@@ -2,10 +2,8 @@ package com.sticast.user;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import com.sticast.validation.FieldMatch;
 import com.sticast.validation.ValidEmail;
-
 import lombok.Data;
 
 @FieldMatch.List({
@@ -16,7 +14,7 @@ public class CrmUser {
 
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
-	private String userName;
+	private String username;
 
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")

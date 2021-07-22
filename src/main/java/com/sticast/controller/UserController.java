@@ -9,12 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Notification;
 import com.sticast.entity.User;
@@ -24,20 +20,23 @@ import com.sticast.service.NotificationService;
 import com.sticast.service.QuestionService;
 import com.sticast.service.UserService;
 
-@Controller
+@RestController
 public class UserController {
+    ForecastService forecastService;
+	QuestionService questionService;
+	UserService userService;
+	NotificationService notificationService;
 
 	@Autowired
-    ForecastService forecastService;
-	
-	@Autowired 
-	QuestionService questionService;
-	
-	@Autowired 
-	UserService userService;
-	
-	@Autowired 
-	NotificationService notificationService;	
+	public UserController(ForecastService forecastService,
+						  QuestionService questionService,
+						  UserService userService,
+						  NotificationService notificationService) {
+		this.forecastService = forecastService;
+		this.questionService = questionService;
+		this.userService = userService;
+		this.notificationService = notificationService;
+	}
 
 	/******* Get user profile *******/
 	
@@ -56,13 +55,13 @@ public class UserController {
 	/******* Edit user profile *******/
 	
 	@PostMapping(value = "/profile")
-	public void editProfile(Model model, HttpServletRequest request,HttpServletResponse response, @RequestParam String userName, @RequestParam String email) throws ServletException, IOException{
+	public void editProfile(Model model, HttpServletRequest request,HttpServletResponse response, @RequestParam String username, @RequestParam String email) throws ServletException, IOException{
 	 	HttpSession session = request.getSession(false);    
 	 	PrintWriter out = response.getWriter();
 	 	User tmpUser = (User) session.getAttribute("user");
 	 		   	
 		User user = userService.findById(tmpUser.getId());
-		user.setUserName(userName);
+		user.setUsername(username);
 		user.setEmail(email);
 	 	try { 
 	 		userService.save(user);
@@ -126,12 +125,12 @@ public class UserController {
     	userDetails.setId(tmpUser.getId());
     	
 		if (closed) 
-			userDetails.setClosedQuestionNotification(1);
-		else userDetails.setClosedQuestionNotification(0);
+			userDetails.setClosedQuestionNotification(true);
+		else userDetails.setClosedQuestionNotification(false);
 		
 		if (comment) 
-			userDetails.setCommentNotification(1); 
-		else userDetails.setCommentNotification(0); 
+			userDetails.setCommentNotification(true);
+		else userDetails.setCommentNotification(false);
 		
 		User user = userService.findById(tmpUser.getId());
 		user.setUserDetails(userDetails);

@@ -7,12 +7,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "notification")
 public class Notification {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", length = 10)
 	private Integer id;
 	
 	@ManyToOne

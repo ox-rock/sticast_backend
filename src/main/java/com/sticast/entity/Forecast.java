@@ -14,12 +14,9 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "forecast")
-public class Forecast{
-
+public class Forecast {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", length=10)
     private Integer id;
     
     @ManyToOne
@@ -30,16 +27,16 @@ public class Forecast{
     @JoinColumn(name="question_id", nullable=false)
     private Question question;
     
-    @Column(name="answer", nullable=false, length=3)
+    @Column(nullable=false, length=3)
     private String answer;
     
-    @Column(name="quantity",nullable=false, length=10)
+    @Column(nullable=false, length=10)
     private Integer quantity;
     
-    @Column(name="payout",nullable=false, length=10)
+    @Column(nullable=false, length=10)
     private Double payout;
     
-    @Column(name="timestamp", nullable=false)
+    @Column(nullable=false)
     @CreationTimestamp
     private Date timestamp;
 }

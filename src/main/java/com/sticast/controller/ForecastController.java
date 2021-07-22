@@ -12,23 +12,27 @@ import com.sticast.entity.Question;
 import com.sticast.entity.User;
 import com.sticast.service.ForecastService;
 import com.sticast.service.QuestionService;
-import com.sticast.service.ShareService;
+import com.sticast.service.UserQuestionDetailsService;
 import com.sticast.service.UserService;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class ForecastController {
+    ForecastService forecastService;
+	QuestionService questionService;
+    UserQuestionDetailsService userQuestionDetailsService;
+	UserService userService;
 
 	@Autowired
-    ForecastService forecastService;
-	
-	@Autowired 
-	QuestionService questionService;
-	
-	@Autowired 
-	ShareService shareService;
-	
-	@Autowired 
-	UserService userService;
+	public ForecastController(ForecastService forecastService,
+							  QuestionService questionService,
+							  UserQuestionDetailsService userQuestionDetailsService,
+							  UserService userService) {
+		this.forecastService = forecastService;
+		this.questionService = questionService;
+		this.userQuestionDetailsService = userQuestionDetailsService;
+		this.userService = userService;
+	}
 
 	// TODO Implement AJAX
 	@PostMapping(value = "/question/{questionID}")
@@ -43,7 +47,7 @@ public class ForecastController {
 		forecast.setUser(user);
 		forecastService.makeForecast(forecast);
 		questionService.updateShareQuantity(forecast);
-		shareService.updateShareQuantity(user, question, forecast);
+		userQuestionDetailsService.updateShareQuantity(user, question, forecast);
 		
 		user.setBudget(user.getBudget() - forecast.getPayout());
 		userService.save(user);		

@@ -41,8 +41,8 @@
           </c:when>  
         </c:choose>      
       
-        <div class="form__group"><form:errors path="userName" cssClass="error" />
-							<form:input path="userName" placeholder="Username" class="form__input" /></div>
+        <div class="form__group"><form:errors path="username" cssClass="error" />
+							<form:input path="username" placeholder="Username" class="form__input" /></div>
         <div class="form__group"><form:errors path="password" cssClass="error" />
 							<form:password path="password" placeholder="Password " class="form__input" /></div>
 							
