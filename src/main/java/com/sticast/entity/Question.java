@@ -1,13 +1,13 @@
 package com.sticast.entity;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sticast.entity.enumeration.Status;
 import lombok.Data;
+import lombok.ToString;
 
 //TODO Add forecasters and forecasts number
 
@@ -55,5 +55,4 @@ public class Question {
 	joinColumns = @JoinColumn(name = "question_id"), 
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories;
-
 }

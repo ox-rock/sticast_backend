@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+	//LASCIARE FIELD INJECTION
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -66,6 +67,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void deleteByUsername(String username) {
 		userDao.deleteByUsername(username);
+	}
+
+	@Override
+	public User updateBudget(User user, Double payout) {
+		user.setBudget(user.getBudget() - payout);
+		return userDao.save(user);
 	}
 
 	@Override

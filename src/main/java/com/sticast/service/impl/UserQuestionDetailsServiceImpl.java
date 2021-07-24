@@ -10,31 +10,30 @@ import com.sticast.entity.User;
 import com.sticast.repository.UserQuestionDetailsDao;
 import com.sticast.service.UserQuestionDetailsService;
 
+import java.util.Optional;
+
 @Service
 public class UserQuestionDetailsServiceImpl implements UserQuestionDetailsService {
 
     @Autowired
-	private UserQuestionDetailsDao shareRepository;
+	private UserQuestionDetailsDao userQuestionDetailsDao;
     	
     @Override
-	public UserQuestionDetails findByUserAndQuestion(User user, Question question) {
-		return shareRepository.findByUserAndQuestion(user, question).orElse(new UserQuestionDetails(null));
+	public Optional<UserQuestionDetails> findByUserAndQuestion(User user, Question question) {
+		return userQuestionDetailsDao.findByUserAndQuestion(user, question);
 	}
 
 	@Override
-	public void updateShareQuantity(User user, Question question, Forecast forecast) {
-		UserQuestionDetails share = new UserQuestionDetails();
-		share = shareRepository.findByUserAndQuestion(user, question).orElse(new UserQuestionDetails(null));
-		if(share != null) {
-			if(forecast.getAnswer().equals("yes")) 
-			    share.setYesShareQnt(share.getYesShareQnt()+forecast.getQuantity());
-			else 
-				share.setNoShareQnt(share.getNoShareQnt()+forecast.getQuantity());
-		}
+	public void updateShareQuantity(UserQuestionDetails userQuestionDetails, Forecast forecast) {
+			if(forecast.getAnswer().equals("yes"))
+				userQuestionDetails.setYesShareQnt(userQuestionDetails.getYesShareQnt() + forecast.getQuantity());
+			else
+				userQuestionDetails.setNoShareQnt(userQuestionDetails.getNoShareQnt() + forecast.getQuantity());
+			userQuestionDetailsDao.save(userQuestionDetails);
 	}
 
 	@Override
 	public UserQuestionDetails findByUser_IdAndQuestion_Id(Integer id, Integer id1) {
-		return shareRepository.findByUser_IdAndQuestion_Id(id, id1);
+		return userQuestionDetailsDao.findByUser_IdAndQuestion_Id(id, id1);
 	}
 }

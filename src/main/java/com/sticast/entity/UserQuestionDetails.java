@@ -34,16 +34,11 @@ public class UserQuestionDetails {
 	private Question question;
 
 	@Column(name="yes_share_quantity", nullable=false)
-	private Integer yesShareQnt;
+	private Integer yesShareQnt = 0;
 	
 	@Column(name="no_share_quantity", nullable=false)
-	private Integer noShareQnt;
+	private Integer noShareQnt = 0;
 
 	@Column(name="isFollowed", nullable=false)
-	private Boolean isFollowed;
-
-	public UserQuestionDetails(Object object) {
-		yesShareQnt=0;
-		noShareQnt=0;
-	}
+	private Boolean isFollowed = false;
 }

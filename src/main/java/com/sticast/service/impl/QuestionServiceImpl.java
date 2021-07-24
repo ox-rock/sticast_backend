@@ -54,14 +54,14 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public void updateShareQuantity(Forecast forecast) {
-		Question oldQuestion = forecast.getQuestion();
+		Question question = forecast.getQuestion();
 		
 		if(forecast.getAnswer().equals("yes")) 
-		    oldQuestion.setYesShareQuantity(oldQuestion.getYesShareQuantity()+forecast.getQuantity()); 
+		    question.setYesShareQuantity(question.getYesShareQuantity() + forecast.getQuantity());
 		else 
-			oldQuestion.setNoShareQuantity(oldQuestion.getNoShareQuantity() + forecast.getQuantity());
+			question.setNoShareQuantity(question.getNoShareQuantity() + forecast.getQuantity());
 			
-		questionRepository.save(oldQuestion);
+		questionRepository.save(question);
 	}
 
 	@Override
@@ -86,4 +86,6 @@ public class QuestionServiceImpl implements QuestionService {
 			userDao.save(user);
 		}
 	}
+
+
 }

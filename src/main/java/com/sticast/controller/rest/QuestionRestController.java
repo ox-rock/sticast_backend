@@ -5,17 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.sticast.entity.*;
+import com.sticast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.sticast.service.CategoryService;
-import com.sticast.service.CommentService;
-import com.sticast.service.NotificationService;
-import com.sticast.service.QuestionService;
-import com.sticast.service.UserQuestionDetailsService;
-import com.sticast.service.UserService;
 
 @RestController
 @SessionAttributes("user")
@@ -24,6 +20,7 @@ public class QuestionRestController {
     private UserService userService;
     private QuestionService questionService;
     private NotificationService notificationService;
+    private ForecastService forecastService;
     private CommentService commentService;
     private CategoryService categoryService;
     private UserQuestionDetailsService userQuestionDetailsService;
@@ -34,11 +31,13 @@ public class QuestionRestController {
                                   NotificationService notificationService,
                                   CommentService commentService,
                                   CategoryService categoryService,
+                                  ForecastService forecastService,
                                   UserQuestionDetailsService userQuestionDetailsService) {
         this.userService = userService;
         this.questionService = questionService;
         this.notificationService = notificationService;
         this.commentService = commentService;
+        this.forecastService = forecastService;
         this.categoryService = categoryService;
         this.userQuestionDetailsService = userQuestionDetailsService;
     }
@@ -130,5 +129,23 @@ public class QuestionRestController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(categoryService.findAll());
+    }
+
+    // TODO Implement AJAX
+    @PostMapping(value = "/question/{id}")
+    public ResponseEntity makeForecast(@PathVariable Integer id, HttpServletRequest request, @RequestBody Forecast tmpForecast) {
+
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        Forecast forecast = forecastService.makeForecast(userId, id, tmpForecast);
+
+        questionService.updateShareQuantity(forecast);
+
+        session.setAttribute("user", userService.updateBudget(forecast.getUser(), forecast.getPayout()));
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Ok");
     }
 }

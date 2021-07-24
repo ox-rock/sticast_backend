@@ -12,4 +12,5 @@ public interface UserService extends UserDetailsService {
     void save(CrmUser crmUser);
     void save(User user);
     void deleteByUsername(String string);
+    User updateBudget(User user, Double payout);
 }

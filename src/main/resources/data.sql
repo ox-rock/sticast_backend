@@ -4,7 +4,7 @@ INSERT INTO dbsticast.category (id, name) VALUES (2, 'politica');
 
 --user
 INSERT INTO dbsticast.user (id, budget, email, password, username, status) VALUES (1, 0, 'test@test.it', '$2a$10$vAEMmhDJPdYGeSyrWkt7ZONe5KCwyPeubFGYHqbiGveeKZ6loxa4u', 'pippo', 'active');
-INSERT INTO dbsticast.user (id, budget, email, password, username, status) VALUES (2, 1000, 'pippo@pippo.it', '$2a$10$vAEMmhDJPdYGeSyrWkt7ZONe5KCwyPeubFGYHqbiGveeKZ6loxa4u', 'pippod', 'active');
+INSERT INTO dbsticast.user (id, budget, email, password, username, status) VALUES (2, 10, 'pippo@pippo.it', '$2a$10$vAEMmhDJPdYGeSyrWkt7ZONe5KCwyPeubFGYHqbiGveeKZ6loxa4u', 'pippod', 'active');
 INSERT INTO dbsticast.user (id, budget, email, password, username, status) VALUES (3, 1000, 'kodsadsa@tdsa.it', '$2a$10$T.EN9X.UXoB6pqPAHY8Kb./5KjC2Jr4VvCWjOZ3yvQpsvXNq0XVwO', 'koko', 'active');
 
 --question
@@ -31,8 +31,8 @@ INSERT INTO dbsticast.users_roles (user_id, role_id) VALUES (2, 1);
 INSERT INTO dbsticast.users_roles (user_id, role_id) VALUES (3, 1);
 
 --user_question_details
-INSERT INTO dbsticast.user_question_details (question_id, user_id, is_followed, no_share_quantity, yes_share_quantity) VALUES (1, 1, true, 140, 5);
-INSERT INTO dbsticast.user_question_details (question_id, user_id, is_followed, no_share_quantity, yes_share_quantity) VALUES (1, 2, false, 39, 5);
+INSERT INTO dbsticast.user_question_details (question_id, user_id, is_followed, no_share_quantity, yes_share_quantity) VALUES (1, 1, true, 10, 10);
+INSERT INTO dbsticast.user_question_details (question_id, user_id, is_followed, no_share_quantity, yes_share_quantity) VALUES (1, 2, false, 10, 10);
 
 --users_details
 INSERT INTO dbsticast.user_details (user_id, closed_question_notification, comment_notification, created_at, is_2fa_active, last_ip, last_login) VALUES (3, true, true, '2021-07-21 22:17:30', true, '127.0.0.0', '2021-07-21 22:17:47');

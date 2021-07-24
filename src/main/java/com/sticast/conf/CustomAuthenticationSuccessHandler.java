@@ -30,7 +30,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		User user = userService.findByUsername(username);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("user", user);
+		session.setAttribute("userId", user.getId());
 
 		response.sendRedirect(request.getContextPath() + "/");
 	}
