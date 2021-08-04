@@ -2,6 +2,8 @@ package com.sticast.controller;
 
 import com.sticast.configurations.springsecurity.JwtTokenUtil;
 import com.sticast.validation.CrmUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +11,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.sticast.entity.User;
 import com.sticast.service.UserService;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -23,13 +29,14 @@ public class AuthenticationController {
 	private final JwtTokenUtil jwtTokenUtil;
 	private final UserService userService;
 
+	@Autowired
 	public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserService userService) {
 		this.authenticationManager = authenticationManager;
 		this.jwtTokenUtil = jwtTokenUtil;
 		this.userService = userService;
 	}
 
-	@PostMapping("/login")
+	@GetMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody User user) {
 		try {
 			Authentication authenticate = authenticationManager
@@ -40,16 +47,18 @@ public class AuthenticationController {
 
 			return ResponseEntity.ok()
 					.header(HttpHeaders.AUTHORIZATION, jwtTokenUtil.generateAccessToken(theUser))
-					.body(""); //TODO Cosa dovrebbe tornare il body?
+					.body(new HashMap<String, String>(1) {{ put("message", "User successfully logged in"); }}); //TODO Cosa dovrebbe tornare il body?
+
 		} catch (BadCredentialsException ex) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			return ResponseEntity
+					.status(HttpStatus.UNAUTHORIZED)
+					.body(new HashMap<String, String>(1) {{ put("message", "Invalid credentials"); }});
 		}
 	}
 
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@Valid @RequestBody CrmUser crmUser) {
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		userService.save(crmUser);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
-
-
 }

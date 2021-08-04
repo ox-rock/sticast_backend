@@ -7,10 +7,12 @@ import com.sticast.repository.UserDao;
 import com.sticast.service.UserService;
 import com.sticast.validation.CrmUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +23,17 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 	//LASCIARE FIELD INJECTION
+
 	@Autowired
 	private UserDao userDao;
+
 	@Autowired
 	private RoleDao roleDao;
 
-	private PasswordEncoder passwordEncoder;
+	//TODO Fare in modo di poterlo chiamare come Bean evitando la circular dependency
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@Override
 	@Transactional
@@ -47,7 +54,7 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 		 // assign user details to the user object
 		user.setUsername(crmUser.getUsername());
-		user.setPassword(passwordEncoder.encode(crmUser.getPassword()));
+		user.setPassword(encoder().encode(crmUser.getPassword()));
 		user.setEmail(crmUser.getEmail());
 		user.setStatus("ACTIVE");
 		// give user default role of "employee"
@@ -89,4 +96,5 @@ public class UserServiceImpl implements UserService {
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
+
 }
