@@ -26,7 +26,11 @@ public class ForecastServiceImpl implements ForecastService {
     private UserQuestionDetailsDao userQuestionDetailsDao;
 
     @Autowired
-    public ForecastServiceImpl(UserDao userDao, QuestionDao questionDao, ForecastDao forecastDao, UserQuestionDetailsService userQuestionDetailsService, UserQuestionDetailsDao userQuestionDetailsDao) {
+    public ForecastServiceImpl(UserDao userDao,
+                               QuestionDao questionDao,
+                               ForecastDao forecastDao,
+                               UserQuestionDetailsService userQuestionDetailsService,
+                               UserQuestionDetailsDao userQuestionDetailsDao) {
         this.userDao = userDao;
         this.questionDao = questionDao;
         this.forecastDao = forecastDao;

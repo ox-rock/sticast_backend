@@ -1,5 +1,6 @@
-package com.sticast.user;
+package com.sticast.validation;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.sticast.validation.FieldMatch;

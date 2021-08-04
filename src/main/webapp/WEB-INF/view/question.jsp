@@ -303,6 +303,13 @@
         });
     });
 
+
+    $(document).ready(function() {
+      $.getJSON("http://localhost:8080/api/question/1", function(data){
+        document.title = item.text
+
+      });
+    });
     
   </script>
 </html>

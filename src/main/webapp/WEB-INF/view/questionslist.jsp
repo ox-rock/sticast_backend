@@ -53,7 +53,6 @@
       </tr>
       </thead>
       <tbody class="table-hover">
-
       </tbody>
     </table>
   </div>
@@ -84,5 +83,6 @@
       });
 
     </script>
+
   </body>
 </html>

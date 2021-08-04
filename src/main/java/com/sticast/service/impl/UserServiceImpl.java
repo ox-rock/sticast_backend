@@ -5,13 +5,13 @@ import com.sticast.entity.User;
 import com.sticast.repository.RoleDao;
 import com.sticast.repository.UserDao;
 import com.sticast.service.UserService;
-import com.sticast.user.CrmUser;
+import com.sticast.validation.CrmUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private RoleDao roleDao;
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	@Transactional

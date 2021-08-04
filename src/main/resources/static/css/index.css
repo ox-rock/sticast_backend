@@ -67,19 +67,24 @@ a:focus {
 	color: #eaebed;
 }
 
-.nav > li > a:focus, .nav > li > a:hover {
+.nav > li > a:focus,
+.nav > li > a:hover {
     text-decoration: none;
     background-color: #37718e;
 }
 
-.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover {
 
     background-color: #37718e;
     border-color: #337ab7;
 
 }
 
-	  .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+	  .list-group-item.active,
+      .list-group-item.active:focus,
+      .list-group-item.active:hover{
 	    background-color: #006989;
 	  }
 

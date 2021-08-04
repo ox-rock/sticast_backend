@@ -35,4 +35,4 @@ INSERT INTO dbsticast.user_question_details (question_id, user_id, is_followed, 
 INSERT INTO dbsticast.user_question_details (question_id, user_id, is_followed, no_share_quantity, yes_share_quantity) VALUES (1, 2, false, 10, 10);
 
 --users_details
-INSERT INTO dbsticast.user_details (user_id, closed_question_notification, comment_notification, created_at, is_2fa_active, last_ip, last_login) VALUES (3, true, true, '2021-07-21 22:17:30', true, '127.0.0.0', '2021-07-21 22:17:47');
+INSERT INTO dbsticast.user_details (user_id, closed_question_notification, comment_notification, created_at, is_2fa_active, last_ip, last_login) VALUES (2, true, true, '2021-07-21 22:17:30', true, '127.0.0.0', '2021-07-21 22:17:47');

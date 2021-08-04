@@ -1,7 +1,7 @@
 package com.sticast.service;
 
 import com.sticast.entity.User;
-import com.sticast.user.CrmUser;
+import com.sticast.validation.CrmUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 

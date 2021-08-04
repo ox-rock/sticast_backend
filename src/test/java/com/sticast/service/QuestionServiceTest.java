@@ -1,4 +1,4 @@
-package com.sticast.service.impl.ut;
+package com.sticast.service;
 
 import com.sticast.entity.Question;
 import com.sticast.repository.QuestionDao;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class QuestionServiceImplTest {
+class QuestionServiceTest {
     @InjectMocks
     private QuestionServiceImpl questionServiceImpl;
 
@@ -24,7 +24,7 @@ class QuestionServiceImplTest {
     private Question question;
 
     @Test
-    void calculateShareValue() {
+    void calculateShareValue_TC0() {
         when(question.getYesShareQuantity()).thenReturn(50);
         when(question.getNoShareQuantity()).thenReturn(0);
 
