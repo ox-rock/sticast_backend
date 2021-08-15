@@ -8,8 +8,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-// TODO Implement log with AOP
-
 @SpringBootApplication
 @EnableJpaRepositories("com.sticast.repository")
 @EntityScan("com.sticast.entity")

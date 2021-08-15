@@ -5,7 +5,6 @@ import com.sticast.entity.Question;
 import com.sticast.entity.UserQuestionDetails;
 import com.sticast.entity.User;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 // TODO Remove trigger from DB 

@@ -1,17 +1,9 @@
 package com.sticast.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import lombok.Data;
 
@@ -48,4 +40,8 @@ public class UserDetails {
     
     @Column(name="is_2FA_active", nullable=false)
     private Boolean is2FAActive = true;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
 }

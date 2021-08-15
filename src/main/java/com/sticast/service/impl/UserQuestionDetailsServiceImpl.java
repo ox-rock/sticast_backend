@@ -2,14 +2,12 @@ package com.sticast.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Question;
 import com.sticast.entity.UserQuestionDetails;
 import com.sticast.entity.User;
 import com.sticast.repository.UserQuestionDetailsDao;
 import com.sticast.service.UserQuestionDetailsService;
-
 import java.util.Optional;
 
 @Service

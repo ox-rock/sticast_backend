@@ -1,17 +1,12 @@
 package com.sticast.service;
 
 import com.sticast.entity.Question;
-import com.sticast.repository.QuestionDao;
-import com.sticast.service.QuestionService;
 import com.sticast.service.impl.QuestionServiceImpl;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

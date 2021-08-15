@@ -1,18 +1,15 @@
 package com.sticast.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.security.core.GrantedAuthority;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class User {
 	@Id
@@ -51,5 +48,11 @@ public class User {
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="user", optional = false)
 	private com.sticast.entity.UserDetails userDetails;
 
-
+	@Override
+	public String toString() {
+		return "User {" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				'}';
+	}
 }

@@ -1,8 +1,6 @@
 package com.sticast.service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import com.sticast.entity.Forecast;
 import com.sticast.entity.Question;
 import com.sticast.entity.User;

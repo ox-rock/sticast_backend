@@ -1,5 +1,5 @@
 package com.sticast.entity.enumeration;
 
-public enum Status {
+public enum QuestionStatus {
     open, closed, other
 }

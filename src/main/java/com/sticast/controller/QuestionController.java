@@ -1,17 +1,20 @@
 package com.sticast.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import com.sticast.entity.*;
 import com.sticast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestController
 @RolesAllowed("ROLE_USER")
@@ -62,10 +65,13 @@ public class QuestionController {
 
     // Get a single question
     @GetMapping(value = "/question/{id}")
-    public ResponseEntity<Question> getQuestion(@PathVariable Integer id) {
+    public ResponseEntity<?> getQuestion(@PathVariable Integer id) {
+
+        Question question = questionService.findById(id);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(questionService.findById(id));
+                .body(question);
     }
 
     // TODO Pensare un nome migliore
@@ -84,8 +90,8 @@ public class QuestionController {
     //Post a comment
     @PostMapping(value = "/question/{id}/comment")
     public ResponseEntity postComment(HttpServletRequest request,
-                              @RequestBody Comment comment,
-                              @PathVariable Integer id) {
+                                      @RequestBody Comment comment,
+                                      @PathVariable Integer id) {
 
         commentService.save(comment);
         HttpSession session = request.getSession(false);

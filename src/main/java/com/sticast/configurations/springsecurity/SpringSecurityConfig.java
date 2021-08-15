@@ -12,14 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import javax.servlet.http.HttpServletResponse;
-import static java.lang.String.format;
+
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -72,9 +70,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				// public endpoints
 				.antMatchers("/api/login").permitAll()
-				.antMatchers("/api/register").permitAll()
+				.antMatchers("/api/register").permitAll();
+
 				//everything else is private
-				.anyRequest().authenticated();
+				//.anyRequest().authenticated();
 
 		// Add JWT token filter
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -85,7 +84,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
+		config.setAllowCredentials(false);
 		config.addAllowedOrigin("*");
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");

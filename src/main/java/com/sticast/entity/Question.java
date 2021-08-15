@@ -3,11 +3,9 @@ package com.sticast.entity;
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sticast.entity.enumeration.Status;
+import com.sticast.entity.enumeration.QuestionStatus;
 import lombok.Data;
-import lombok.ToString;
 
 //TODO Add forecasters and forecasts number
 
@@ -31,7 +29,7 @@ public class Question {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private QuestionStatus status;
     
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
@@ -55,4 +53,12 @@ public class Question {
 	joinColumns = @JoinColumn(name = "question_id"), 
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories;
+
+    @Override
+    public String toString() {
+        return "Question {" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

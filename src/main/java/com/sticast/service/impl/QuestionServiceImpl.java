@@ -18,25 +18,25 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
-	private QuestionDao questionRepository;
+	private QuestionDao questionDao;
    	private UserQuestionDetailsDao userQuestionDetailsDao;
    	private UserDao userDao;
 
    	@Autowired
 	public QuestionServiceImpl(QuestionDao questionRepository, UserQuestionDetailsDao userQuestionDetailsDao, UserDao userDao) {
-		this.questionRepository = questionRepository;
+		this.questionDao = questionRepository;
 		this.userQuestionDetailsDao = userQuestionDetailsDao;
 		this.userDao = userDao;
 	}
 
 	@Override
 	public List<Question> findAll() {
-			return questionRepository.findAll();
+			return questionDao.findAll();
 	}
 	
 	@Override
 	public Question findById(Integer questionID) {
-		Optional<Question> question = questionRepository.findById(questionID);
+		Optional<Question> question = questionDao.findById(questionID);
 		if(question.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This question doesn't exists");
 
@@ -61,7 +61,7 @@ public class QuestionServiceImpl implements QuestionService {
 		else 
 			question.setNoShareQuantity(question.getNoShareQuantity() + forecast.getQuantity());
 			
-		questionRepository.save(question);
+		questionDao.save(question);
 	}
 
 	@Override

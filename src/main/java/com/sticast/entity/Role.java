@@ -2,7 +2,6 @@ package com.sticast.entity;
 
 import javax.persistence.*;
 import lombok.Data;
-import java.util.List;
 
 @Data
 @Entity

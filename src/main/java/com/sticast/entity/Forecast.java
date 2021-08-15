@@ -2,7 +2,6 @@ package com.sticast.entity;
 
 import java.util.Date;
 import javax.persistence.*;
-
 import com.sticast.entity.enumeration.Answer;
 import com.sticast.entity.enumeration.Type;
 import org.hibernate.annotations.CreationTimestamp;
