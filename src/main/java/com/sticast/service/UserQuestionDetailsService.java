@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface UserQuestionDetailsService {
 	Optional<UserQuestionDetails> findByUserAndQuestion(User user, Question question);
 	void updateShareQuantity(UserQuestionDetails userQuestionDetails, Forecast forecast);
-    UserQuestionDetails findByUser_IdAndQuestion_Id(Integer id, Integer id1);
+    UserQuestionDetails findByUser_UsernameAndQuestion_Id(String username, Integer questionId);
 }

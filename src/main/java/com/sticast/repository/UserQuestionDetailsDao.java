@@ -13,5 +13,5 @@ import com.sticast.entity.User;
 public interface UserQuestionDetailsDao extends JpaRepository<UserQuestionDetails, ShareKey> {
 	Optional<UserQuestionDetails> findByUserAndQuestion(User user, Question question);
 	List<UserQuestionDetails> findByQuestion(Question question);
-    UserQuestionDetails findByUser_IdAndQuestion_Id(Integer id, Integer id1);
+    UserQuestionDetails findByUser_UsernameAndQuestion_Id(String username, Integer questionId);
 }

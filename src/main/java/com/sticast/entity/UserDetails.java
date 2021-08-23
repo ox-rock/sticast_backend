@@ -41,7 +41,4 @@ public class UserDetails {
     @Column(name="is_2FA_active", nullable=false)
     private Boolean is2FAActive = true;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AccountStatus accountStatus;
 }

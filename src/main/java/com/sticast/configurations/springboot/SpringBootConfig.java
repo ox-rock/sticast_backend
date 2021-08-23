@@ -14,14 +14,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("com.sticast")
 public class SpringBootConfig extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SpringBootConfig.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(SpringBootConfig.class);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootConfig.class, args);
-	}
-
-
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootConfig.class, args);
+    }
 }

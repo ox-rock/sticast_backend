@@ -4,20 +4,15 @@ import com.sticast.configurations.springsecurity.JwtTokenUtil;
 import com.sticast.entity.JwtResponse;
 import com.sticast.validation.CrmUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import com.sticast.entity.User;
 import com.sticast.service.UserService;
-
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 @RestController

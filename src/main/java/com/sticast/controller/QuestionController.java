@@ -1,20 +1,17 @@
 package com.sticast.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import com.sticast.entity.*;
 import com.sticast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestController
 @RolesAllowed("ROLE_USER")
@@ -45,28 +42,28 @@ public class QuestionController {
         this.userQuestionDetailsService = userQuestionDetailsService;
     }
 
-    // Get all questions
     // TODO Implement search functionality: by name, date and forecasts number with pagination
-    @GetMapping(value = "/questions")
-    public ResponseEntity<List<Question>> showAllQuestions(Model model, HttpServletRequest request) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(questionService.findAll());
-    }
-
     // TODO Implement multiple question category support
-    // Get all questions of a given category
-    @GetMapping(value = "/questions/{category}")
-    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category) {
+    @GetMapping(value = "/questions")
+    public ResponseEntity<List<Question>> getQuestions(
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "keyword", required = false) String keyword)
+    {
+        List<Question> questionsList;
+        if (category.equals("all"))
+            questionsList = questionService.findAll();
+        else
+            questionsList = categoryService.findByName(category).getQuestions();
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(categoryService.findByName(category).getQuestions());
+                .body(questionsList);
     }
 
     // Get a single question
     @GetMapping(value = "/question/{id}")
     public ResponseEntity<?> getQuestion(@PathVariable Integer id) {
-
         Question question = questionService.findById(id);
 
         return ResponseEntity
@@ -74,17 +71,26 @@ public class QuestionController {
                 .body(question);
     }
 
-    // TODO Pensare un nome migliore
+    // TODO Think a better name
     @GetMapping(value = "/question/{id}/data")
     public ResponseEntity<UserQuestionDetails> getShares(HttpServletRequest request,
                                                          @PathVariable Integer id) {
 
-        HttpSession session = request.getSession(false);
-        User tmpUser = (User) session.getAttribute("user");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userQuestionDetailsService.findByUser_UsernameAndQuestion_Id(SecurityContextHolder.getContext().getAuthentication().getName(), id));
+    }
+
+    //Get comments
+    @GetMapping(value = "/question/{id}/comments")
+    public ResponseEntity<?> getComments(@PathVariable Integer id) {
+
+        Question question = questionService.findById(id);
+        List<Comment> commentList = question.getComments();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userQuestionDetailsService.findByUser_IdAndQuestion_Id(tmpUser.getId(), id));
+                .body(commentList);
     }
 
     //Post a comment
@@ -92,7 +98,6 @@ public class QuestionController {
     public ResponseEntity postComment(HttpServletRequest request,
                                       @RequestBody Comment comment,
                                       @PathVariable Integer id) {
-
         commentService.save(comment);
         HttpSession session = request.getSession(false);
         User tmpUser = (User) session.getAttribute("user");
@@ -106,6 +111,8 @@ public class QuestionController {
                 .status(HttpStatus.OK)
                 .body("ok");
     }
+
+
 
     // Follow a question
     @PostMapping(value = "/question/{questionID}/follow")

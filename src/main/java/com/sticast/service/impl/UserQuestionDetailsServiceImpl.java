@@ -31,7 +31,7 @@ public class UserQuestionDetailsServiceImpl implements UserQuestionDetailsServic
 	}
 
 	@Override
-	public UserQuestionDetails findByUser_IdAndQuestion_Id(Integer id, Integer id1) {
-		return userQuestionDetailsDao.findByUser_IdAndQuestion_Id(id, id1);
+	public UserQuestionDetails findByUser_UsernameAndQuestion_Id(String username, Integer questionId) {
+		return userQuestionDetailsDao.findByUser_UsernameAndQuestion_Id(username, questionId);
 	}
 }

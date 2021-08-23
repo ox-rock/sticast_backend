@@ -37,8 +37,8 @@ public class Question {
     @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
     
-    @Column(name = "forecasters", nullable = false)
-    private Integer forecasters;
+    @Column(name = "followers", nullable = false)
+    private Integer followers;
     
     @Column(name = "forecasts", nullable = false)
     private Integer forecastsNumber;
@@ -47,7 +47,7 @@ public class Question {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
     private List<Comment> comments;
 
-    @JsonIgnore
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "questions_categories", 
 	joinColumns = @JoinColumn(name = "question_id"), 
